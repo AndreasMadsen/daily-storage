@@ -27,8 +27,8 @@ function DailyStorage(dbpath, settings) {
   this._maxage = completeMaxage(this._settings.maxage);
 
   // Setup database
-  this._database = level(dbpath, extend(extend({}, settings.db), DB_SETTINGS));
-  this._keys = new KeyManager(this._database, settings.timecache);
+  this._database = level(dbpath, extend(extend({}, this._settings.db), DB_SETTINGS));
+  this._keys = new KeyManager(this._database, this._settings.timecache);
 
   // TODO: add automatic cleanup system (using settings.maxage)
 }
@@ -80,6 +80,6 @@ function timestampBuffer(seconds, milliseconds, fill) {
 }
 
 DailyStorage.prototype.close = function (callback) {
-  this._storageKeys.close();
+  this._keys.close();
   this._database.close(callback);
 };
