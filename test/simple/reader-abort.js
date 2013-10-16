@@ -68,21 +68,27 @@ test('destroy on readable', function (t) {
     startMilliseconds: null,
     endSeconds: null,
     endMilliseconds: null,
-    level: [1, 9]
+    levels: [1, 9]
   });
 
-  stream.once('end', t.end.bind(t));
+  var lastReadable = false;
 
   stream.once('readable', function () {
-  	stream.once('readable', function () {
-  	  t.deepEqual(stream.read(), {
-  	    'type': 'read-stop',
-  	    'error': null
+    stream.once('readable', function () {
+      lastReadable = true;
+      t.deepEqual(stream.read(), {
+        'type': 'read-stop',
+        'error': null
       });
-  	});
+    });
 
     stream.destroy();
-  	stream.read();
+    stream.read();
+  });
+
+  stream.once('end', function () {
+    t.ok(lastReadable);
+    t.end();
   });
 });
 
@@ -92,21 +98,25 @@ test('destroy on error', function (t) {
     startMilliseconds: null,
     endSeconds: null,
     endMilliseconds: null,
-    level: [1, 9]
+    levels: [1, 9]
   });
 
-  stream.once('end', t.end.bind(t));
+  var lastReadable = false;
 
   stream.once('readable', function () {
-    stream.destroy();
-    var data = stream.read();
-   	match(t, stream.read(), {
-	  'type': 'read-stop',
-	  'error': new Error('fake error')
-	});
+    lastReadable = true;
+    match(t, stream.read(), {
+      'type': 'read-stop',
+      'error': new Error('fake error')
+    });
   });
 
-   stream._source.emit('error', new Error('fake error'));
+  stream._source.emit('error', new Error('fake error'));
+
+  stream.once('end', function () {
+    t.ok(lastReadable);
+    t.end();
+  });
 });
 
 setup.close();

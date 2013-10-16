@@ -77,7 +77,6 @@ test('write in future time', function (t) {
   });
 
   t.test('future - executing future writes will also result in error', function (t) {
-    global.debug = true;
     setup.storage.write(writeRequest, function (err, result) {
       t.equal(err, null);
       t.notEqual(result.error, null);

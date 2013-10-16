@@ -67,8 +67,8 @@ test('no interval', function (t) {
     startMilliseconds: null,
     endSeconds: null,
     endMilliseconds: null,
-    level: [1, 9]
-  }).pipe({ objectMode: true }, function (err, items) {
+    levels: [1, 9]
+  }).pipe(endpoint({ objectMode: true }, function (err, items) {
     t.equal(err, null);
     items = items.slice(0, -1).map(function (item) { return item.message.toString(); });
     t.deepEqual(items, [
@@ -78,7 +78,7 @@ test('no interval', function (t) {
       'message - 4'
     ]);
     t.end();
-  });
+  }));
 });
 
 test('no range level interval', function (t) {
@@ -87,15 +87,15 @@ test('no range level interval', function (t) {
     startMilliseconds: null,
     endSeconds: null,
     endMilliseconds: null,
-    level: [1, 1]
-  }).pipe({ objectMode: true }, function (err, items) {
+    levels: [1, 1]
+  }).pipe(endpoint({ objectMode: true }, function (err, items) {
     t.equal(err, null);
     items = items.slice(0, -1).map(function (item) { return item.message.toString(); });
     t.deepEqual(items, [
       'message - 1'
     ]);
     t.end();
-  });
+  }));
 });
 
 test('half range level interval', function (t) {
@@ -104,8 +104,8 @@ test('half range level interval', function (t) {
     startMilliseconds: null,
     endSeconds: null,
     endMilliseconds: null,
-    level: [2, 3]
-  }).pipe({ objectMode: true }, function (err, items) {
+    levels: [2, 3]
+  }).pipe(endpoint({ objectMode: true }, function (err, items) {
     t.equal(err, null);
     items = items.slice(0, -1).map(function (item) { return item.message.toString(); });
     t.deepEqual(items, [
@@ -113,7 +113,7 @@ test('half range level interval', function (t) {
       'message - 3'
     ]);
     t.end();
-  });
+  }));
 });
 
 test('outside level interval', function (t) {
@@ -122,13 +122,13 @@ test('outside level interval', function (t) {
     startMilliseconds: null,
     endSeconds: null,
     endMilliseconds: null,
-    level: [8, 9]
-  }).pipe({ objectMode: true }, function (err, items) {
+    levels: [8, 9]
+  }).pipe(endpoint({ objectMode: true }, function (err, items) {
     t.equal(err, null);
     items = items.slice(0, -1).map(function (item) { return item.message.toString(); });
     t.deepEqual(items, []);
     t.end();
-  });
+  }));
 });
 
 test('simple time interval', function (t) {
@@ -137,8 +137,8 @@ test('simple time interval', function (t) {
     startMilliseconds: 0,
     endSeconds: 2500,
     endMilliseconds: 0,
-    level: [1, 9]
-  }).pipe({ objectMode: true }, function (err, items) {
+    levels: [1, 9]
+  }).pipe(endpoint({ objectMode: true }, function (err, items) {
     t.equal(err, null);
     items = items.slice(0, -1).map(function (item) { return item.message.toString(); });
     t.deepEqual(items, [
@@ -146,7 +146,7 @@ test('simple time interval', function (t) {
       'message - 2'
     ]);
     t.end();
-  });
+  }));
 });
 
 test('single timestamp interval', function (t) {
@@ -155,15 +155,15 @@ test('single timestamp interval', function (t) {
     startMilliseconds: 500,
     endSeconds: 2000,
     endMilliseconds: 500,
-    level: [1, 9]
-  }).pipe({ objectMode: true }, function (err, items) {
+    levels: [1, 9]
+  }).pipe(endpoint({ objectMode: true }, function (err, items) {
     t.equal(err, null);
     items = items.slice(0, -1).map(function (item) { return item.message.toString(); });
     t.deepEqual(items, [
       'message - 1'
     ]);
     t.end();
-  });
+  }));
 });
 
 test('no start time interval', function (t) {
@@ -172,8 +172,8 @@ test('no start time interval', function (t) {
     startMilliseconds: null,
     endSeconds: 2500,
     endMilliseconds: 0,
-    level: [1, 9]
-  }).pipe({ objectMode: true }, function (err, items) {
+    levels: [1, 9]
+  }).pipe(endpoint({ objectMode: true }, function (err, items) {
     t.equal(err, null);
     items = items.slice(0, -1).map(function (item) { return item.message.toString(); });
     t.deepEqual(items, [
@@ -181,7 +181,7 @@ test('no start time interval', function (t) {
       'message - 2'
     ]);
     t.end();
-  });
+  }));
 });
 
 test('no end time interval', function (t) {
@@ -190,8 +190,8 @@ test('no end time interval', function (t) {
     startMilliseconds: 0,
     endSeconds: null,
     endMilliseconds: null,
-    level: [1, 9]
-  }).pipe({ objectMode: true }, function (err, items) {
+    levels: [1, 9]
+  }).pipe(endpoint({ objectMode: true }, function (err, items) {
     t.equal(err, null);
     items = items.slice(0, -1).map(function (item) { return item.message.toString(); });
     t.deepEqual(items, [
@@ -199,7 +199,7 @@ test('no end time interval', function (t) {
       'message - 4'
     ]);
     t.end();
-  });
+  }));
 });
 
 setup.close();
