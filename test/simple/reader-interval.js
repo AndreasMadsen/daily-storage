@@ -4,6 +4,8 @@ var endpoint = require('endpoint');
 
 var setup = require('../setup.js')();
 
+var CURRENT_SECOND = Math.floor(Date.now() / 1000);
+
 setup.open();
 
 test('write a few messages', function (t) {
@@ -18,7 +20,7 @@ test('write a few messages', function (t) {
 
   t.test('message 1', function (t) {
     writeRequest.level = 1;
-    writeRequest.seconds = 2000;
+    writeRequest.seconds = CURRENT_SECOND + 2000;
     writeRequest.message = new Buffer('message - 1');
     setup.storage.write(writeRequest, function (err, response) {
       t.equal(err, null);
@@ -29,7 +31,7 @@ test('write a few messages', function (t) {
 
   t.test('message 2', function (t) {
     writeRequest.level = 2;
-    writeRequest.seconds = 2001;
+    writeRequest.seconds = CURRENT_SECOND + 2001;
     writeRequest.message = new Buffer('message - 2');
     setup.storage.write(writeRequest, function (err, response) {
       t.equal(err, null);
@@ -40,7 +42,7 @@ test('write a few messages', function (t) {
 
   t.test('message 3', function (t) {
     writeRequest.level = 3;
-    writeRequest.seconds = 2999;
+    writeRequest.seconds = CURRENT_SECOND + 2999;
     writeRequest.message = new Buffer('message - 3');
     setup.storage.write(writeRequest, function (err, response) {
       t.equal(err, null);
@@ -51,7 +53,7 @@ test('write a few messages', function (t) {
 
   t.test('message 4', function (t) {
     writeRequest.level = 4;
-    writeRequest.seconds = 3000;
+    writeRequest.seconds = CURRENT_SECOND + 3000;
     writeRequest.message = new Buffer('message - 4');
     setup.storage.write(writeRequest, function (err, response) {
       t.equal(err, null);
@@ -133,9 +135,9 @@ test('outside level interval', function (t) {
 
 test('simple time interval', function (t) {
   setup.storage.reader({
-    startSeconds: 1000,
+    startSeconds: CURRENT_SECOND + 1000,
     startMilliseconds: 0,
-    endSeconds: 2500,
+    endSeconds: CURRENT_SECOND + 2500,
     endMilliseconds: 0,
     levels: [1, 9]
   }).pipe(endpoint({ objectMode: true }, function (err, items) {
@@ -151,9 +153,9 @@ test('simple time interval', function (t) {
 
 test('single timestamp interval', function (t) {
   setup.storage.reader({
-    startSeconds: 2000,
+    startSeconds: CURRENT_SECOND + 2000,
     startMilliseconds: 500,
-    endSeconds: 2000,
+    endSeconds: CURRENT_SECOND + 2000,
     endMilliseconds: 500,
     levels: [1, 9]
   }).pipe(endpoint({ objectMode: true }, function (err, items) {
@@ -170,7 +172,7 @@ test('no start time interval', function (t) {
   setup.storage.reader({
     startSeconds: null,
     startMilliseconds: null,
-    endSeconds: 2500,
+    endSeconds: CURRENT_SECOND + 2500,
     endMilliseconds: 0,
     levels: [1, 9]
   }).pipe(endpoint({ objectMode: true }, function (err, items) {
@@ -186,7 +188,7 @@ test('no start time interval', function (t) {
 
 test('no end time interval', function (t) {
   setup.storage.reader({
-    startSeconds: 2500,
+    startSeconds: CURRENT_SECOND + 2500,
     startMilliseconds: 0,
     endSeconds: null,
     endMilliseconds: null,

@@ -8,12 +8,13 @@ var match = require('../match.js');
 setup.open();
 
 var FUTURE_SECOND = Math.ceil(Date.now() / 1000) + 5;
+var PAST_SECOND = Math.ceil(Date.now() / 1000) - 20; // timecache is 10 sec
 
 test('write in past time', function (t) {
   var writeRequest = {
     'type': 'write',
     'id': 0,
-    'seconds': 2000,
+    'seconds': PAST_SECOND,
     'milliseconds': 500,
     'level': 1,
     'message': new Buffer(0)
@@ -100,7 +101,7 @@ test('check that all logs exists', function (t) {
     match(t, rows[0], {
       type: 'read-start',
       level: 1,
-      seconds: 2000,
+      seconds: PAST_SECOND,
       milliseconds: 500,
       message: new Buffer('past - 1')
     });
@@ -108,7 +109,7 @@ test('check that all logs exists', function (t) {
     match(t, rows[1], {
       type: 'read-start',
       level: 1,
-      seconds: 2000,
+      seconds: PAST_SECOND,
       milliseconds: 500,
       message: new Buffer('past - 2')
     });

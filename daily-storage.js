@@ -2,6 +2,7 @@
 var level = require('level');
 var extend = require('util-extend');
 
+var nowsec = require('./lib/now-second.js');
 var KeyManager = require('./lib/key-manager.js');
 var ReadFilter = require('./lib/read-filter.js');
 
@@ -29,8 +30,6 @@ function DailyStorage(dbpath, settings) {
   // Setup database
   this._database = level(dbpath, extend(extend({}, this._settings.db), DB_SETTINGS));
   this._keys = new KeyManager(this._database, this._settings.timecache);
-
-  // TODO: add automatic cleanup system (using settings.maxage)
 }
 module.exports = DailyStorage;
 
@@ -45,10 +44,19 @@ var INVALID_LOG_LEVEL = new RangeError('invalid log level');
 DailyStorage.prototype.write = function (req, callback) {
   var self = this;
 
+  // Validate the log level
   if (req.level < 1 || req.level > 9 || this._maxage[req.level - 1] === 0) {
     return callback(null, { 'type': 'write', 'id': req.id, 'error': INVALID_LOG_LEVEL });
   }
 
+  // Do a short circuit if the age is too old. Besides faster, this also allows
+  // the db-gc to limit its scan, since it knows that very too old logs can't
+  // exist.
+  if (req.seconds < nowsec() - this._maxage[req.level - 1]) {
+    return callback(null, { 'type': 'write', 'id': req.id, 'error': null });
+  }
+
+  // Generate a log key and put log in database
   this._keys.generateKey(req.seconds, req.milliseconds, req.level, function (err, keybuffer) {
     if (err) return callback(null, { 'type': 'write', 'id': req.id, 'error': err });
 

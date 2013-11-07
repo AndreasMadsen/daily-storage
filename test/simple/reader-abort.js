@@ -1,9 +1,10 @@
 
 var test = require('tap').test;
-var endpoint = require('endpoint');
 
 var setup = require('../setup.js')();
 var match = require('../match.js');
+
+var CURRENT_SECOND = Math.floor(Date.now() / 1000);
 
 setup.open();
 
@@ -19,7 +20,7 @@ test('write a few messages', function (t) {
 
   t.test('message 1', function (t) {
     writeRequest.level = 1;
-    writeRequest.seconds = 2000;
+    writeRequest.seconds = CURRENT_SECOND + 2000;
     writeRequest.message = new Buffer('message - 1');
     setup.storage.write(writeRequest, function (err, response) {
       t.equal(err, null);
@@ -30,7 +31,7 @@ test('write a few messages', function (t) {
 
   t.test('message 2', function (t) {
     writeRequest.level = 2;
-    writeRequest.seconds = 2001;
+    writeRequest.seconds = CURRENT_SECOND + 2001;
     writeRequest.message = new Buffer('message - 2');
     setup.storage.write(writeRequest, function (err, response) {
       t.equal(err, null);
@@ -41,7 +42,7 @@ test('write a few messages', function (t) {
 
   t.test('message 3', function (t) {
     writeRequest.level = 3;
-    writeRequest.seconds = 2999;
+    writeRequest.seconds = CURRENT_SECOND + 2999;
     writeRequest.message = new Buffer('message - 3');
     setup.storage.write(writeRequest, function (err, response) {
       t.equal(err, null);
@@ -52,7 +53,7 @@ test('write a few messages', function (t) {
 
   t.test('message 4', function (t) {
     writeRequest.level = 4;
-    writeRequest.seconds = 3000;
+    writeRequest.seconds = CURRENT_SECOND + 3000;
     writeRequest.message = new Buffer('message - 4');
     setup.storage.write(writeRequest, function (err, response) {
       t.equal(err, null);

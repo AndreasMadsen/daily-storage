@@ -8,6 +8,7 @@ setup.open();
 
 var CRITICAL_LIMIT = Math.pow(2, 16);
 var FUTURE_SECOND = Math.ceil(Date.now() / 1000) + 5;
+var PAST_SECOND = Math.ceil(Date.now() / 1000) - 20; // timecache is 10 sec
 
 function createQueue(message, amount) {
   var queue = [];
@@ -26,7 +27,7 @@ test('write in past time', function (t) {
   var writeRequest = {
     'type': 'write',
     'id': 0,
-    'seconds': 2000,
+    'seconds': PAST_SECOND,
     'milliseconds': 500,
     'level': 1,
     'message': new Buffer('past')
