@@ -5,6 +5,7 @@ var extend = require('util-extend');
 var nowsec = require('./lib/now-second.js');
 var KeyManager = require('./lib/key-manager.js');
 var ReadFilter = require('./lib/read-filter.js');
+var GarbageCollector = require('./lib/garbage-collector.js');
 
 var DAY = 60 * 60 * 24,
     WEEK = DAY * 7,
@@ -30,6 +31,7 @@ function DailyStorage(dbpath, settings) {
   // Setup database
   this._database = level(dbpath, extend(extend({}, this._settings.db), DB_SETTINGS));
   this._keys = new KeyManager(this._database, this._settings.timecache);
+  this._gc = new GarbageCollector(this._database, this._maxage);
 }
 module.exports = DailyStorage;
 
