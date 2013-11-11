@@ -115,7 +115,7 @@ test('check that all logs exists', function (t) {
   }));
 });
 
-test('all levels should be collected after 2 sec', function (t) {
+test('all levels should be collected after 3 sec', function (t) {
   setTimeout(function () {
     setup.storage.reader(READER_REQUEST).pipe(endpoint({objectMode: true}, function (err, rows) {
       t.equal(err, null);

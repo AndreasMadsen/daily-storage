@@ -109,7 +109,7 @@ test('check that all logs exists', function (t) {
   }));
 });
 
-test('level 3 is garbage collected after 2 sec', function (t) {
+test('level 3 is garbage collected after 3 sec', function (t) {
   setTimeout(function () {
     setup.storage.reader(READER_REQUEST).pipe(endpoint({objectMode: true}, function (err, rows) {
       t.equal(err, null);
@@ -141,7 +141,7 @@ test('level 3 is garbage collected after 2 sec', function (t) {
   }, 1000 * 3);
 });
 
-test('level 2 is garbage collected after 4 sec', function (t) {
+test('level 2 is garbage collected after 6 sec', function (t) {
   setTimeout(function () {
     setup.storage.reader(READER_REQUEST).pipe(endpoint({objectMode: true}, function (err, rows) {
       t.equal(err, null);
@@ -165,7 +165,7 @@ test('level 2 is garbage collected after 4 sec', function (t) {
   }, 1000 * 3);
 });
 
-test('level 1 is garbage collected after 6 sec', function (t) {
+test('level 1 is garbage collected after 9 sec', function (t) {
   setTimeout(function () {
     setup.storage.reader(READER_REQUEST).pipe(endpoint({objectMode: true}, function (err, rows) {
       t.equal(err, null);
