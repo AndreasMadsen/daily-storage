@@ -1,5 +1,7 @@
 
+var util = require('util');
 var level = require('level');
+var events = require('events');
 var extend = require('util-extend');
 
 var nowsec = require('./lib/now-second.js');
@@ -32,7 +34,9 @@ function DailyStorage(dbpath, settings) {
   this._database = level(dbpath, extend(extend({}, this._settings.db), DB_SETTINGS));
   this._keys = new KeyManager(this._database, this._settings.timecache);
   this._gc = new GarbageCollector(this._database, this._maxage);
+  this._gc.on('error', this.emit.bind(this, 'error'));
 }
+util.inherits(DailyStorage, events.EventEmitter);
 module.exports = DailyStorage;
 
 function completeMaxage(array) {
