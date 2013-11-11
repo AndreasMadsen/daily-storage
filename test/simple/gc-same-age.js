@@ -18,7 +18,7 @@ var READER_REQUEST = {
   'levels': [1, 9]
 };
 
-test('write in past time', function (t) {
+test('write testing logs', function (t) {
   var writeRequest = {
     'type': 'write',
     'id': 0,

@@ -9,7 +9,7 @@ var CONDITION_OLD_SECIND = Math.floor(Date.now() / 1000) - (60 * 60 * 24 * 2);
 
 setup.open();
 
-test('write old message', function (t) {
+test('write testing logs', function (t) {
   var writeRequest = {
     'type': 'write',
     'id': 0,
