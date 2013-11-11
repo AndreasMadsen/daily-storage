@@ -1,7 +1,7 @@
 {
   "name": "daily-storage",
   "description": "daily - The LevelDB storage abstaction",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Andreas Madsen <amwebdk@gmail.com>",
   "main": "./daily-storage.js",
   "scripts": {
@@ -13,18 +13,21 @@
   },
   "keywords": [
     "daily",
-    "remote",
-    "protocol",
-    "lowlevel"
+    "leveldb",
+    "levelup",
+    "level",
+    "storage",
+    "maxage",
+    "logging"
   ],
   "dependencies": {
+    "async": "0.2.x",
     "level": "0.17.x",
     "endpoint": "0.4.x",
     "util-extend": "1.0.x"
   },
   "devDependencies": {
     "tap": "0.4.x",
-    "async": "0.2.x",
     "wrench": "1.5.x"
   },
   "license": "MIT",
