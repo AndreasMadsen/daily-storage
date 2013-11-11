@@ -27,8 +27,8 @@ test('write testing log - initial', function (t) {
     'id': 0,
     'seconds': NOW_INITIAL,
     'milliseconds': 500,
-    'level': 3,
-    'message': new Buffer('level 3 - first')
+    'level': 2,
+    'message': new Buffer('level 2 - first')
   };
 
   setup.storage.write(writeRequest, function (err, response) {
@@ -49,10 +49,10 @@ test('check that test log exists', function (t) {
 
     match(t, rows[0], {
       type: 'read-start',
-      level: 3,
+      level: 2,
       seconds: NOW_INITIAL,
       milliseconds: 500,
-      message: new Buffer('level 3 - first')
+      message: new Buffer('level 2 - first')
     });
 
     match(t, rows[1], {
@@ -64,7 +64,33 @@ test('check that test log exists', function (t) {
   }));
 });
 
-test('initial log should be collected after 2 sec', function (t) {
+
+test('initial log should be not be collected after 3 sec', function (t) {
+  setTimeout(function () {
+    setup.storage.reader(READER_REQUEST).pipe(endpoint({objectMode: true}, function (err, rows) {
+      t.equal(err, null);
+      t.equal(rows.length, 2);
+
+      match(t, rows[0], {
+        type: 'read-start',
+        level: 2,
+        seconds: NOW_INITIAL,
+        milliseconds: 500,
+        message: new Buffer('level 2 - first')
+      });
+
+      match(t, rows[1], {
+        type: 'read-stop',
+        error: null
+      });
+
+      t.end();
+    }));
+  }, 1000 * 3);
+});
+
+
+test('initial log should be collected after 6 sec', function (t) {
   setTimeout(function () {
     setup.storage.reader(READER_REQUEST).pipe(endpoint({objectMode: true}, function (err, rows) {
       t.equal(err, null);
@@ -88,8 +114,8 @@ test('write testing log - not initial', function (t) {
     'id': 0,
     'seconds': NOW_NOT_INITIAL,
     'milliseconds': 500,
-    'level': 3,
-    'message': new Buffer('level 3 - second')
+    'level': 2,
+    'message': new Buffer('level 2 - second')
   };
 
   setup.storage.write(writeRequest, function (err, response) {
@@ -110,10 +136,10 @@ test('check that test log exists', function (t) {
 
     match(t, rows[0], {
       type: 'read-start',
-      level: 3,
+      level: 2,
       seconds: NOW_NOT_INITIAL,
       milliseconds: 500,
-      message: new Buffer('level 3 - second')
+      message: new Buffer('level 2 - second')
     });
 
     match(t, rows[1], {
@@ -125,7 +151,33 @@ test('check that test log exists', function (t) {
   }));
 });
 
-test('none initial log should be collected after 2 sec', function (t) {
+
+test('none initial log should be not collected after 3 sec', function (t) {
+  setTimeout(function () {
+    setup.storage.reader(READER_REQUEST).pipe(endpoint({objectMode: true}, function (err, rows) {
+      t.equal(err, null);
+      t.equal(rows.length, 2);
+
+      match(t, rows[0], {
+        type: 'read-start',
+        level: 2,
+        seconds: NOW_NOT_INITIAL,
+        milliseconds: 500,
+        message: new Buffer('level 2 - second')
+      });
+
+      match(t, rows[1], {
+        type: 'read-stop',
+        error: null
+      });
+
+      t.end();
+    }));
+  }, 1000 * 3);
+});
+
+
+test('none initial log should be collected after 6 sec', function (t) {
   setTimeout(function () {
     setup.storage.reader(READER_REQUEST).pipe(endpoint({objectMode: true}, function (err, rows) {
       t.equal(err, null);
