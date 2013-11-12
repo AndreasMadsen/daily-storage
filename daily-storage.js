@@ -25,6 +25,7 @@ var DB_SETTINGS = {
 
 function DailyStorage(dbpath, settings) {
   if (!(this instanceof DailyStorage)) return new DailyStorage(dbpath, settings);
+  events.EventEmitter.call(this);
 
   // Apply default settings
   this._settings = extend(extend({}, DEFAULTS), settings);
