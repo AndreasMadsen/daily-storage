@@ -33,7 +33,10 @@ function DailyStorage(dbpath, settings) {
 
   // Setup database
   this._database = level(dbpath, extend(extend({}, this._settings.db), DB_SETTINGS));
+  this._database.on('error', this.emit.bind(this, 'error'));
+
   this._keys = new KeyManager(this._database, this._settings.timecache);
+
   this._gc = new GarbageCollector(this._database, this._maxage);
   this._gc.on('error', this.emit.bind(this, 'error'));
 }

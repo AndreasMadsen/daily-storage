@@ -93,7 +93,7 @@ object. In general there are 3 ways it can stop:
 * `reader.destory()` is called
 * no more data exists.
 
-Very simple example in how read data using the [daily-protocol](https://github.com/AndreasMadsen/daily-protocol)
+Very simple example on how read data using the [daily-protocol](https://github.com/AndreasMadsen/daily-protocol)
 module and a `storage.reader` object.
 
 ```javascript
@@ -106,6 +106,10 @@ socket.once('data', function (request) {
   if (request.type === 'read-stop') reader.destroy();
 });
 ```
+
+### storage.on('error')
+
+Errors emitted here are usually caused by the garbage collector.
 
 ##License
 
