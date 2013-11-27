@@ -97,8 +97,8 @@ function timestampBuffer(seconds, milliseconds, fill) {
   return buf;
 }
 
-DailyStorage.prototype.close = function (callback) {
+DailyStorage.prototype.close = function () {
   this._keys.close();
   this._gc.close();
-  this._database.close(callback);
+  this._database.close(this.emit.bind(this, 'close'));
 };

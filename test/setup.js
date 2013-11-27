@@ -28,8 +28,7 @@ ServerSetup.prototype.close = function () {
   var self = this;
 
   test('close daily server', function (t) {
-    self.storage.close(function () {
-      t.end();
-    });
+    self.storage.once('close', t.end.bind(t));
+    self.storage.close();
   });
 };

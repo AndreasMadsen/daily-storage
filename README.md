@@ -107,9 +107,17 @@ socket.once('data', function (request) {
 });
 ```
 
+### storage.close()
+
+Close the database and all stuff maintaining it.
+
 ### storage.on('error')
 
 Errors emitted here are usually caused by the garbage collector.
+
+### storage.on('close')
+
+Emitted after the `.close` call.
 
 ##License
 
