@@ -1,7 +1,7 @@
 {
   "name": "daily-storage",
   "description": "daily - The LevelDB storage abstaction",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "author": "Andreas Madsen <amwebdk@gmail.com>",
   "main": "./daily-storage.js",
   "scripts": {
