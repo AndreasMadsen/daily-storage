@@ -48,7 +48,7 @@ test('write in past time', function (t) {
       t.notEqual(result.error, null);
       if (result.error !== null) {
         t.equal(result.error.name, 'RangeError');
-        t.equal(result.error.message, 'duplicate incrementer exceeded 16 bit uint capacity');
+        t.equal(result.error.message, 'duplicate decrementer exceeded 16 bit uint capacity');
       }
       t.end();
     });
@@ -83,7 +83,7 @@ test('write in future time', function (t) {
       t.notEqual(result.error, null);
       if (result.error !== null) {
         t.equal(result.error.name, 'RangeError');
-        t.equal(result.error.message, 'duplicate incrementer exceeded 16 bit uint capacity');
+        t.equal(result.error.message, 'duplicate decrementer exceeded 16 bit uint capacity');
       }
       t.end();
     });

@@ -74,10 +74,10 @@ test('no interval', function (t) {
     t.equal(err, null);
     items = items.slice(0, -1).map(function (item) { return item.message.toString(); });
     t.deepEqual(items, [
-      'message - 1',
-      'message - 2',
+      'message - 4',
       'message - 3',
-      'message - 4'
+      'message - 2',
+      'message - 1'
     ]);
     t.end();
   }));
@@ -111,8 +111,8 @@ test('half range level interval', function (t) {
     t.equal(err, null);
     items = items.slice(0, -1).map(function (item) { return item.message.toString(); });
     t.deepEqual(items, [
-      'message - 2',
-      'message - 3'
+      'message - 3',
+      'message - 2'
     ]);
     t.end();
   }));
@@ -144,8 +144,8 @@ test('simple time interval', function (t) {
     t.equal(err, null);
     items = items.slice(0, -1).map(function (item) { return item.message.toString(); });
     t.deepEqual(items, [
-      'message - 1',
-      'message - 2'
+      'message - 2',
+      'message - 1'
     ]);
     t.end();
   }));
@@ -179,8 +179,8 @@ test('no start time interval', function (t) {
     t.equal(err, null);
     items = items.slice(0, -1).map(function (item) { return item.message.toString(); });
     t.deepEqual(items, [
-      'message - 1',
-      'message - 2'
+      'message - 2',
+      'message - 1'
     ]);
     t.end();
   }));
@@ -197,8 +197,8 @@ test('no end time interval', function (t) {
     t.equal(err, null);
     items = items.slice(0, -1).map(function (item) { return item.message.toString(); });
     t.deepEqual(items, [
-      'message - 3',
-      'message - 4'
+      'message - 4',
+      'message - 3'
     ]);
     t.end();
   }));

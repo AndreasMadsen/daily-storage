@@ -78,8 +78,9 @@ DailyStorage.prototype.write = function (req, callback) {
 
 DailyStorage.prototype.reader = function (req) {
   var source = this._database.createReadStream({
-    start: timestampBuffer(req.startSeconds, req.startMilliseconds, 0x00),
-    end: timestampBuffer(req.endSeconds, req.endMilliseconds, 0xff),
+    'end': timestampBuffer(req.startSeconds, req.startMilliseconds, 0x00),
+    'start': timestampBuffer(req.endSeconds, req.endMilliseconds, 0xff),
+    'reverse': true
   });
 
   return new ReadFilter(source, req.levels);

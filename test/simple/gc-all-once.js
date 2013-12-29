@@ -84,10 +84,10 @@ test('check that all logs exists', function (t) {
 
     match(t, rows[0], {
       type: 'read-start',
-      level: 1,
-      seconds: LEVEL_1,
+      level: 3,
+      seconds: LEVEL_3,
       milliseconds: 500,
-      message: new Buffer('level 1 - first')
+      message: new Buffer('level 3 - first')
     });
 
     match(t, rows[1], {
@@ -100,10 +100,10 @@ test('check that all logs exists', function (t) {
 
     match(t, rows[2], {
       type: 'read-start',
-      level: 3,
-      seconds: LEVEL_3,
+      level: 1,
+      seconds: LEVEL_1,
       milliseconds: 500,
-      message: new Buffer('level 3 - first')
+      message: new Buffer('level 1 - first')
     });
 
     match(t, rows[3], {

@@ -101,33 +101,33 @@ test('check that all logs exists', function (t) {
     match(t, rows[0], {
       type: 'read-start',
       level: 1,
-      seconds: PAST_SECOND,
-      milliseconds: 500,
-      message: new Buffer('past - 1')
-    });
-
-    match(t, rows[1], {
-      type: 'read-start',
-      level: 1,
-      seconds: PAST_SECOND,
-      milliseconds: 500,
-      message: new Buffer('past - 2')
-    });
-
-    match(t, rows[2], {
-      type: 'read-start',
-      level: 1,
       seconds: FUTURE_SECOND,
       milliseconds: 500,
       message: new Buffer('future - 1')
     });
 
-    match(t, rows[3], {
+    match(t, rows[1], {
       type: 'read-start',
       level: 1,
       seconds: FUTURE_SECOND,
       milliseconds: 500,
       message: new Buffer('future - 2')
+    });
+
+    match(t, rows[2], {
+      type: 'read-start',
+      level: 1,
+      seconds: PAST_SECOND,
+      milliseconds: 500,
+      message: new Buffer('past - 1')
+    });
+
+    match(t, rows[3], {
+      type: 'read-start',
+      level: 1,
+      seconds: PAST_SECOND,
+      milliseconds: 500,
+      message: new Buffer('past - 2')
     });
 
     match(t, rows[4], {
