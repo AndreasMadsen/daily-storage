@@ -1,4 +1,4 @@
-#daily-storage
+#daily-storage [![Build Status](https://secure.travis-ci.org/AndreasMadsen/daily-storage.png)](http://travis-ci.org/AndreasMadsen/daily-storage)
 
 > [daily](https://github.com/AndreasMadsen/daily) - The LevelDB storage abstaction
 
