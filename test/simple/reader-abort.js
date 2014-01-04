@@ -81,6 +81,7 @@ test('destroy on readable', function (t) {
         'type': 'read-stop',
         'error': null
       });
+      stream.resume();
     });
 
     stream.destroy();
@@ -110,6 +111,7 @@ test('destroy on error', function (t) {
       'type': 'read-stop',
       'error': new Error('fake error')
     });
+    stream.resume();
   });
 
   stream._source.emit('error', new Error('fake error'));
