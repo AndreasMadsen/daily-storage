@@ -21,14 +21,14 @@
     "logging"
   ],
   "dependencies": {
-    "async": "0.2.x",
+    "async": "0.6.x",
     "level": "0.18.x",
     "endpoint": "0.4.x",
     "util-extend": "1.0.x"
   },
   "devDependencies": {
-    "tap": "0.4.x",
-    "wrench": "1.5.x"
+    "tap": "0.6.x",
+    "rimraf": "2.2.x"
   },
   "license": "MIT"
 }

@@ -35,7 +35,7 @@ test('write in past time', function (t) {
 
   t.test('past - fill up database to the critical limit', function (t) {
     async.parallel(createQueue(writeRequest, CRITICAL_LIMIT + 1), function (err, result) {
-      t.equal(err, null);
+      t.ifError(err);
       var failures = result.filter(function (res) { return res.error !== null; });
       t.equal(failures.length, 1);
      t.end();
@@ -70,7 +70,7 @@ test('write in future time', function (t) {
 
   t.test('future - fill up database to the critical limit', {timeout: Infinity }, function (t) {
     async.parallel(createQueue(writeRequest, CRITICAL_LIMIT + 1), function (err, result) {
-      t.equal(err, null);
+      t.ifError(err);
       var failures = result.filter(function (res) { return res.error !== null; });
       t.equal(failures.length, 1);
      t.end();

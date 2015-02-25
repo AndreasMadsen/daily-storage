@@ -2,7 +2,7 @@
 var fs = require('fs');
 var test = require('tap').test;
 var path = require('path');
-var wrench = require('wrench');
+var rimraf = require('rimraf');
 var DailyStoreage = require('../daily-storage.js');
 
 var DB_PATH = path.resolve(__dirname, 'temp.db');
@@ -10,7 +10,7 @@ var DB_PATH = path.resolve(__dirname, 'temp.db');
 function ServerSetup() {
   if (!(this instanceof ServerSetup)) return new ServerSetup();
 
-  if (fs.existsSync(DB_PATH)) wrench.rmdirSyncRecursive(DB_PATH);
+  if (fs.existsSync(DB_PATH)) rimraf.sync(DB_PATH);
   this.storage = null;
 }
 module.exports = ServerSetup;
